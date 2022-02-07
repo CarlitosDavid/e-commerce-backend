@@ -3,7 +3,6 @@ const Product = require('./Product');
 const Category = require('./Category');
 const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
-const { upsert } = require('./Product');
 
 // Products belongsTo Category
 Product.belongsTo(Category, {
