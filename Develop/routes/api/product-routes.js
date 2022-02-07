@@ -63,31 +63,25 @@ router.get('/:id', (req, res) => {
 // create new product
 router.post('/', (req, res) => {
   // using req.body to receive data through POST and PUT request. 
-  Product.create({
-      product_name: req.body.product_name,
-      price: req.body.price,
-      stock: req.body.stock,
-      tagIds: req.body.tagIds
-  })
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+  Product.create(req.body)
+    .then((prodcut) => {
       if (req.body.tagIds.length) {
-        const ProductTagIdArr = req.body.tagIds.map((tag_id) => {
+        const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
-            product_id: product.id,
+            product_id: product_id, 
             tag_id,
           };
         });
-        return ProductTag.bulkCreate(ProductTagIdArr);
+        // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+        return ProductTag.bulkCreate(productTagIdArr);
       }
-      // if no product tags, just respond
       res.status(200).json(product);
-    })
-    .then((ProductTagIds) => res.status(200).json(ProductTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+     })
+     .then((productTagIds) => res.status(200).json(productTagIds))
+     .catch((err) => {
+       console.log(err);
+       res.status(400).json(err);
+     });
 });
 
 // update product
