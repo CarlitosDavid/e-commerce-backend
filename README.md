@@ -23,10 +23,11 @@
     npm intall mysql2
     npm install sequelize
     npm intall dotenv.
+    npm intall i seed
     Once you have all installation run mysql -u root -p in your terminal in your root directory.
     next enter in mysql>
     source db/schema.sql
     quit
     next in terminal in root directory
-    npm run seed
+    npm run
     npm start.
